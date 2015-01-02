@@ -192,8 +192,8 @@
       %field:year is a standard field
       %field:title is a standard field
       \step[fieldsource=team, fieldtarget=verba]
-      \step[fieldsource=advisors, fieldtarget=editor]
-      \step[fieldsource=students, fieldtarget=author]
+      \step[fieldsource=advisor, fieldtarget=editor]
+      \step[fieldsource=student, fieldtarget=author]
       %field:note is a standard field
     }
     \map{
@@ -611,9 +611,9 @@
 %   The title of the project.
 % team (required)
 %   The name of the team (e.g. ECE-14).
-% advisors (required)
+% advisor (required)
 %   The advisor of the senior design team.
-% students (required)
+% student (required)
 %   The student members in the senior design team.
 % note (optional)
 %   Any additional information regarding the senior design entry.
@@ -625,7 +625,7 @@
   }%
 }}
 \DeclareNameFormat[seniordesign]{verba}{{#1}}                   % team
-\DeclareNameFormat[seniordesign]{fullname}{%                    % students and advisors
+\DeclareNameFormat[seniordesign]{fullname}{%                    % student and advisor
   \ifthenelse{\value{listcount}=\value{liststop}}{% last name in list
     \ifthenelse{\value{liststop}=1}{% only one name in list
       % do nothing

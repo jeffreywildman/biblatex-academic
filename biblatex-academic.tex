@@ -37,6 +37,7 @@ This implementation follows standard \pkg{biblatex} conventions, and can be used
 \end{verbatim}
 The \pkg{biblatex-academic} style requires \pkg{biblatex} 2.7a or later, requires \pkg{Biber} as the database back-end, and the following packages/styles: \pkg{biblatex-ieee}, \pkg{graphicx}, \pkg{siunitx}, \pkg{calc}, \pkg{hyperref}, and \pkg{wrapfig}.
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Entry Types
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -162,8 +163,8 @@ The \pkg{biblatex-academic} style requires \pkg{biblatex} 2.7a or later, require
     \field{year},
     \field{title},
     \field{team},
-    \field{advisors},
-    \field{students}
+    \field{advisor},
+    \field{student}
 
     Optional fields:
     \field{note}
@@ -204,7 +205,6 @@ The \pkg{biblatex-academic} style requires \pkg{biblatex} 2.7a or later, require
 
 \begin{itemize}
     \item[\field{academic\_year}]
-    \item[\field{advisors}]
     \item[\field{advisor}]
     \item[\field{amount}]
     \item[\field{award\_num}]
@@ -242,7 +242,6 @@ The \pkg{biblatex-academic} style requires \pkg{biblatex} 2.7a or later, require
     \item[\field{status}]
     \item[\field{student\_mean}]
     \item[\field{student\_std}]
-    \item[\field{students}]
     \item[\field{student}]
     \item[\field{team}]
     \item[\field{term}]
