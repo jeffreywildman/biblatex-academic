@@ -14,6 +14,8 @@
 \newcommand{\pkg}[1]{\textsf{#1}}
 \newcommand{\entry}[1]{\textsf{#1}}
 \newcommand{\field}[1]{\textsf{#1}}
+\newcommand{\env}[1]{\textsf{#1}}
+\newcommand{\sort}[1]{\textsf{#1}}
 \newcommand{\command}[1]{\(\backslash\)#1}
 
 \author{Jeffrey Wildman%
@@ -247,6 +249,33 @@ The new fields and their types are listed below:
     \item[\field{type}] field (literal)
     \item[\field{website\_alt}] field (literal)
     \item[\field{website}] field (uri)
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Environments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Environments}\label{sec:environments}
+
+\pkg{biblatex-academic} defines new environments that must be used with certain entry types:
+
+\begin{itemize}
+  \item[\env{people}] An environment for use with \entry{alumnus}, \entry{collaborator}, and \entry{student} entries.
+  \item[\env{course}] An environment for use with \entry{course} entries.
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Sorting Schemes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Sorting Schemes}\label{sec:sorting}
+
+\pkg{biblatex-academic} defines several sorting styles:
+
+\begin{itemize}
+  \item[\sort{course}] A sorting style for use with \entry{course} entries.
+  \item[\sort{eventdate}] A sorting style for use with \entry{project}, \entry{proposal}, and \entry{service} entries.
+  \item[\sort{ymdnt}] A sorting style for use with \entry{presentation}, \entry{seniordesign}, and \entry{committee} entries.
 \end{itemize}
 
 
