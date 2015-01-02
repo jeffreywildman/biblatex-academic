@@ -1,7 +1,7 @@
 % !TEX TS-program = pdflatex
 % !BIB TS-program = biber
 \documentclass[11pt,letterpaper]{article}
-\usepackage[top=0.75in,bottom=0.75in,left=0.5in,right=0.5in]{geometry}
+%\usepackage[top=0.75in,bottom=0.75in,left=0.5in,right=0.5in]{geometry}
 \usepackage{multicol}
 
 \usepackage[backend=biber,bibstyle=academic,defernumbers=true,sorting=nty]{biblatex}
@@ -11,15 +11,247 @@
 
 \renewcommand{\bibfont}{\footnotesize}
 
+\newcommand{\pkg}[1]{\textsf{#1}}
+\newcommand{\entry}[1]{\textsf{#1}}
+\newcommand{\field}[1]{\textsf{#1}}
+\newcommand{\command}[1]{\(\backslash\)#1}
+
+\author{Jeffrey Wildman%
+  \thanks{E-mail:\href{mailto:jeffrey.wildman@gmail.com}%
+  {\texttt{jeffrey.wildman@gmail.com}}}
+}
+\title{The \pkg{academic} bibliography style for \pkg{biblatex}%
+  \footnote{This file describes v?.? last revised YYYY/MM/DD.}%
+}
+\date{Released YYYY/MM/DD}
+
 
 \begin{document}
 
+\maketitle
 
-%%%%%%%%%%%%%%%%%%%%%%%
-%% TABLE OF CONTENTS %%
-%%%%%%%%%%%%%%%%%%%%%%%
-\tableofcontents
-\clearpage
+The \pkg{biblatex-academic} package provides a \pkg{biblatex} style for lists of things an academic might like to list in a CV or lab whitepaper (students, alumni, collaborators, proposals, projects, courses, etc.).
+This implementation follows standard \pkg{biblatex} conventions, and can be used simply by loading \pkg{biblatex} with the appropriate options:
+\begin{verbatim}
+    \usepackage[backend=biber,bibstyle=academic]{biblatex}
+\end{verbatim}
+The \pkg{biblatex-academic} style requires \pkg{biblatex} 2.7a or later, requires \pkg{Biber} as the database back-end, and the following packages/styles: \pkg{biblatex-ieee}, \pkg{graphicx}, \pkg{siunitx}, \pkg{calc}, \pkg{hyperref}, and \pkg{wrapfig}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Entry Types
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Entry Types}\label{sec:entry-types}
+
+\pkg{biblatex-academic} defines several new entry types: 
+\entry{alumnus}, 
+\entry{collaborator}, 
+\entry{committee},
+\entry{course}, 
+\entry{presentation}, 
+\entry{project}, 
+\entry{proposal}, 
+\entry{seniordesign}, 
+\entry{service},
+\entry{student}. 
+
+\begin{itemize}
+  \item[\entry{alumnus}] An alum of a lab, university, etc.
+
+    Required fields:
+    \field{name},
+    \field{image},
+    \field{degree},
+    \field{date},
+    \field{thesis}
+
+    Optional fields:
+    \field{coadvisor},
+    \field{coadvisor\_url},
+    \field{employer},
+    \field{employer\_url}
+
+  \item[\entry{collaborator}] A research collaborator.
+
+    Required fields:
+    \field{name},
+    \field{image},
+    \field{position},
+    \field{employer},
+    \field{type}
+
+    Optional fields:
+    \field{employer\_url},
+    \field{email},
+    \field{website},
+    \field{website\_alt}
+
+  \item[\entry{committee}] A committee served on.
+    
+    Required fields:
+    \field{title},
+    \field{date},
+    \field{student},
+    \field{advisor},
+    \field{chair},
+    \field{member},
+    \field{type}
+
+    Optional fields:
+    \field{coadvisor}
+
+  \item[\entry{course}] A course course taught at a university.
+    
+    Required fields:
+    \field{number},
+    \field{title},
+    \field{term},
+    \field{academic\_year},
+    \field{level},
+    \field{enrollment},
+    \field{instr\_mean},
+    \field{instr\_std},
+    \field{student\_mean},
+    \field{student\_std}
+
+    Optional fields:
+
+  \item[\entry{presentation}] A presentation.
+    Required fields:
+    \field{presenter},
+    \field{title},
+    \field{eventtype},
+    \field{event},
+    \field{location},
+    \field{date}
+
+    Optional fields:
+
+  \item[\entry{project}] A research project.
+    
+    Required fields:
+    \field{title},
+    \field{program},
+    \field{investigators\_p},
+    \field{duration},
+    \field{amount},
+    \field{status}
+
+    Optional fields:
+    \field{award\_num},
+    \field{award\_url},
+    \field{investigators\_co},
+    \field{note}
+  
+  \item[\entry{proposal}] A research proposal.
+    
+    Required fields:
+    \field{title},
+    \field{program},
+    \field{investigators\_p},
+    \field{date},
+    \field{amount},
+    \field{status}
+
+    Optional fields:
+    \field{investigators\_co},
+    \field{note}
+
+  \item[\entry{seniordesign}] A senior design project.
+    
+    Required fields:
+    \field{year},
+    \field{title},
+    \field{team},
+    \field{advisors},
+    \field{students}
+
+    Optional fields:
+    \field{note}
+
+  \item[\entry{service}] A self-contained acti of service to a professional community.
+
+    Required fields:
+    \field{type},
+    \field{conf\_name},
+    \field{location},
+    \field{duration}
+
+    Optional fields:
+    \field{conf\_url},
+    \field{note}
+
+  \item[\entry{student}] A student under advisement.
+ 
+    Required fields:
+    \field{name},
+    \field{image},
+    \field{degree},
+
+    Optional fields:
+    \field{email},
+    \field{website},
+    \field{website\_alt},
+    \field{coadvisor},
+    \field{coadvisor\_url},
+    \field{bio}
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Fields
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Fields}\label{sec:fields}
+
+\begin{itemize}
+    \item[\field{academic\_year}]
+    \item[\field{advisors}]
+    \item[\field{advisor}]
+    \item[\field{amount}]
+    \item[\field{award\_num}]
+    \item[\field{award\_url}]
+    \item[\field{bio}]
+    \item[\field{chair}]
+    \item[\field{coadvisor\_url}]
+    \item[\field{coadvisor}]
+    \item[\field{conf\_name}]
+    \item[\field{conf\_url}]
+    \item[\field{date}]
+    \item[\field{degree}]
+    \item[\field{duration}]
+    \item[\field{email}]
+    \item[\field{employer\_url}]
+    \item[\field{employer}]
+    \item[\field{enrollment}]
+    \item[\field{eventtype}]
+    \item[\field{event}]
+    \item[\field{image}]
+    \item[\field{instr\_mean}]
+    \item[\field{instr\_std}]
+    \item[\field{investigators\_co}]
+    \item[\field{investigators\_p}]
+    \item[\field{keywords}]
+    \item[\field{level}]
+    \item[\field{location}]
+    \item[\field{member}]
+    \item[\field{name}]
+    \item[\field{note}]
+    \item[\field{number}]
+    \item[\field{position}]
+    \item[\field{presenter}]
+    \item[\field{program}]
+    \item[\field{status}]
+    \item[\field{student\_mean}]
+    \item[\field{student\_std}]
+    \item[\field{students}]
+    \item[\field{student}]
+    \item[\field{team}]
+    \item[\field{term}]
+    \item[\field{thesis}]
+    \item[\field{title}]
+    \item[\field{type}]
+    \item[\field{website\_alt}]
+    \item[\field{website}]
+\end{itemize}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
