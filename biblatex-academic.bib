@@ -1,0 +1,504 @@
+% degrees
+@string{phd                 = "Ph.D." }
+@string{ms                  = "M.S." }
+@string{bs                  = "B.S." }
+@string{bsms                = "B.S./M.S." }
+@string{postdoc             = "Postdoc" }
+
+% collaborator subtype
+@string{int                 = "internal" }
+@string{ext                 = "external" }
+
+% committee subtype
+@string{phdcand             = "phd-candidacy" }
+@string{phdprop             = "phd-proposal" }
+@string{phddef              = "phd-defense" }
+@string{msdef               = "ms-defense" }
+
+% course terms
+@string{fal                 = 1 }
+@string{win                 = 2 }
+@string{spr                 = 3 }
+@string{sum                 = 4 }
+
+% course subtype
+@string{g                   = "graduate" }
+@string{u                   = "undergraduate" }
+@string{c                   = "crosslisted" }
+
+% presentation subtype
+@string{univ                = "university" }
+@string{conf                = "conference" }
+@string{proj                = "project" }
+@string{indu                = "industry" }
+@string{misc                = "miscellaneous" }
+@string{resday              = "researchday" }
+
+% project subtype
+@string{ong                 = "ongoing" }
+@string{cmp                 = "completed" }
+
+% proposal subtype
+@string{prop                = "proposed" }
+@string{accp                = "accepted" }
+@string{decl                = "declined" }
+
+% service subtype
+@string{oc                  = "conference-organizing-committee" }
+@string{tpc                 = "conference-technical-program-committee" }
+@string{jge                 = "journal-guest-editor" }
+@string{ivp                 = "ieee-volunteer-position" }
+
+
+@alumnus{         alum1,
+  name          = "Last, First",
+  image         = "./bio.png",
+  degree        = phd,
+  date          = "2014-01",
+  thesis        = "Title of the thesis",
+  coadvisor     = "Last, First",
+  coadvisor_url = "http://www.google.com",
+  employer      = "Employer",
+  employer_url  = "http://www.google.com"
+}
+
+
+@alumnus{         alum2,
+  name          = "Last, First",
+  image         = "./bio.png",
+  degree        = phd,
+  date          = "2014-01",
+  thesis        = "Title of the thesis",
+  coadvisor     = "Last, First",
+  coadvisor_url = "http://www.google.com",
+  employer      = "Employer",
+  employer_url  = "http://www.google.com"
+}
+
+
+@alumnus{         alum3,
+  name          = "Last, First",
+  image         = "./bio.png",
+  degree        = phd,
+  date          = "2014-01",
+  thesis        = "Title of the thesis",
+  coadvisor     = "Last, First",
+  coadvisor_url = "http://www.google.com",
+  employer      = "Employer",
+  employer_url  = "http://www.google.com"
+}
+
+
+@alumnus{         alum4,
+  name          = "Last, First",
+  image         = "./bio.png",
+  degree        = phd,
+  date          = "2014-01",
+  thesis        = "Title of the thesis",
+  coadvisor     = "Last, First",
+  coadvisor_url = "http://www.google.com",
+  employer      = "Employer",
+  employer_url  = "http://www.google.com"
+}
+
+
+@collaborator{    collab1,
+  name          = "Last, First",
+  image         = "./bio.png",
+  position      = "Associate Professor",
+  employer      = "University Name",
+  employer_url  = "http://www.google.com",
+  email         = "collab1@university.edu",
+  website       = "http://www.google.com",
+  type          = int
+}
+
+
+@collaborator{    collab2,
+  name          = "Last, First",
+  image         = "./bio.png",
+  position      = "Associate Professor",
+  employer      = "University Name",
+  employer_url  = "http://www.google.com",
+  email         = "collab2@university.edu",
+  website       = "http://www.google.com",
+  type          = int
+}
+
+
+@collaborator{    collab3,
+  name          = "Last, First",
+  image         = "./bio.png",
+  position      = "Associate Professor",
+  employer      = "University Name",
+  employer_url  = "http://www.google.com",
+  email         = "collab1@university.edu",
+  website       = "http://www.google.com",
+  type          = ext
+}
+
+
+@collaborator{    collab4,
+  name          = "Last, First",
+  image         = "./bio.png",
+  position      = "Associate Professor",
+  employer      = "University Name",
+  employer_url  = "http://www.google.com",
+  email         = "collab2@university.edu",
+  website       = "http://www.google.com",
+  type          = ext
+}
+
+
+@committee{ comm1,
+  title     = "Title of the committee",
+  date      = "2013-04-14",
+  student   = "Last, First",
+  advisor   = "Last, First",
+  coadvisor = "Last, First",
+  chair     = "Last, First",
+  member    = "Last1, First1 and Last2, First2 and Last3, First3",
+  type      = phdcand
+}
+
+
+@committee{ comm2,
+  title     = "Title of the committee",
+  date      = "2013-04-14",
+  student   = "Last, First",
+  advisor   = "Last, First",
+  coadvisor = "Last, First",
+  chair     = "Last, First",
+  member    = "Last1, First1 and Last2, First2 and Last3, First3",
+  type      = phdcand
+}
+
+
+@committee{ comm3,
+  title     = "Title of the committee",
+  date      = "2013-04-14",
+  student   = "Last, First",
+  advisor   = "Last, First",
+  coadvisor = "Last, First",
+  chair     = "Last, First",
+  member    = "Last1, First1 and Last2, First2 and Last3, First3",
+  type      = phdcand
+}
+
+
+@committee{ comm4,
+  title     = "Title of the committee",
+  date      = "2013-04-14",
+  student   = "Last, First",
+  advisor   = "Last, First",
+  coadvisor = "Last, First",
+  chair     = "Last, First",
+  member    = "Last1, First1 and Last2, First2 and Last3, First3",
+  type      = phdcand
+}
+
+
+@course{          course1,
+  number        = "ECE 100",
+  title         = "Title of the course",
+  term          = fal,
+  academic_year = "2013/2014",
+  level         = u,
+  enrollment    = 12,
+  instr_mean    = "4.2",
+  instr_std     = "0.6",
+  student_mean  = "3.1",
+  student_std   = "0.7"
+}
+
+
+@course{          course2,
+  number        = "ECE 200",
+  title         = "Title of the course",
+  term          = win,
+  academic_year = "2013/2014",
+  level         = u,
+  enrollment    = 12,
+  instr_mean    = "4.2",
+  instr_std     = "0.6",
+  student_mean  = "3.1",
+  student_std   = "0.7"
+}
+
+
+@course{          course3,
+  number        = "ECE 300",
+  title         = "Title of the course",
+  term          = spr,
+  academic_year = "2013/2014",
+  level         = u,
+  enrollment    = 12,
+  instr_mean    = "4.2",
+  instr_std     = "0.6",
+  student_mean  = "3.1",
+  student_std   = "0.7"
+}
+
+
+@course{          course4,
+  number        = "ECE 500",
+  title         = "Title of the course",
+  term          = sum,
+  academic_year = "2013/2014",
+  level         = g,
+  enrollment    = 12,
+  instr_mean    = "4.2",
+  instr_std     = "0.6",
+  student_mean  = "3.1",
+  student_std   = "0.7"
+}
+
+
+@presentation{    pres1,
+  presenter     = "Last, First",
+  title         = "Title of the presentation",
+  eventtype     = conf,
+  event         = "{IEEE} International Conference on Computer Communications ({INFOCOM})",
+  location      = "Philadelphia, PA",
+  date          = "2014-05-02"
+}
+
+
+@presentation{    pres2,
+  presenter     = "Last, First",
+  title         = "Title of the presentation",
+  eventtype     = conf,
+  event         = "{IEEE} International Conference on Computer Communications ({INFOCOM})",
+  location      = "Philadelphia, PA",
+  date          = "2014-05-02"
+}
+
+
+@presentation{    pres3,
+  presenter     = "Last, First",
+  title         = "Title of the presentation",
+  eventtype     = conf,
+  event         = "{IEEE} International Conference on Computer Communications ({INFOCOM})",
+  location      = "Philadelphia, PA",
+  date          = "2014-05-02"
+}
+
+
+@presentation{    pres4,
+  presenter     = "Last, First",
+  title         = "Title of the presentation",
+  eventtype     = conf,
+  event         = "{IEEE} International Conference on Computer Communications ({INFOCOM})",
+  location      = "Philadelphia, PA",
+  date          = "2014-05-02"
+}
+
+
+@project{         proj1,
+  title         = "Title of the project",
+  program       = "National Science Foundation ({NSF}); Directorate for Computer and Information Science and Engineering ({CSE}); Division of Computer and Communication Foundations ({CCF})",
+  award_num     = "CCF-1234567",
+  award_url     = "http://nsf.gov/awardsearch/showAward?AWD_ID=1234567",
+  investigator_p = "Last, First",
+  investigator_co = "Last, First",
+  duration      = "2014-09-01/2017-08-31",
+  amount        = 100000,
+  status        = ong
+}
+
+
+@project{         proj2,
+  title         = "Title of the project",
+  program       = "National Science Foundation ({NSF}); Directorate for Computer and Information Science and Engineering ({CSE}); Division of Computer and Communication Foundations ({CCF})",
+  award_num     = "CCF-1234567",
+  award_url     = "http://nsf.gov/awardsearch/showAward?AWD_ID=1234567",
+  investigator_p = "Last, First",
+  investigator_co = "Last, First",
+  duration      = "2014-09-01/2017-08-31",
+  amount        = 100000,
+  status        = ong
+}
+
+
+@project{         proj3,
+  title         = "Title of the project",
+  program       = "National Science Foundation ({NSF}); Directorate for Computer and Information Science and Engineering ({CSE}); Division of Computer and Communication Foundations ({CCF})",
+  award_num     = "CCF-1234567",
+  award_url     = "http://nsf.gov/awardsearch/showAward?AWD_ID=1234567",
+  investigator_p = "Last, First",
+  investigator_co = "Last, First",
+  duration      = "2014-09-01/2017-08-31",
+  amount        = 100000,
+  status        = ong
+}
+
+
+@project{         proj4,
+  title         = "Title of the project",
+  program       = "National Science Foundation ({NSF}); Directorate for Computer and Information Science and Engineering ({CSE}); Division of Computer and Communication Foundations ({CCF})",
+  award_num     = "CCF-1234567",
+  award_url     = "http://nsf.gov/awardsearch/showAward?AWD_ID=1234567",
+  investigator_p = "Last, First",
+  investigator_co = "Last, First",
+  duration      = "2014-09-01/2017-08-31",
+  amount        = 100000,
+  status        = ong
+}
+
+
+@proposal{        prop1,
+  title         = "Title of the proposal",
+  program       = "National Science Foundation ({NSF}); Directorate for Computer and Information Science and Engineering ({CSE}); Division of Computer and Communication Foundations ({CCF})",
+  investigator_p = "Last, First",
+  investigator_co = "Last1, First1 and Last2, First2 and Last3, First3 and Last4, First4",
+  date          = "2008-07",
+  amount        = 100000,
+  status        = accp,
+  note          = "A note about the proposal"
+}
+
+
+@proposal{        prop2,
+  title         = "Title of the proposal",
+  program       = "National Science Foundation ({NSF}); Directorate for Computer and Information Science and Engineering ({CSE}); Division of Computer and Communication Foundations ({CCF})",
+  investigator_p = "Last, First",
+  investigator_co = "Last1, First1 and Last2, First2 and Last3, First3 and Last4, First4",
+  date          = "2008-07",
+  amount        = 100000,
+  status        = accp,
+  note          = "A note about the proposal"
+}
+
+
+@proposal{        prop3,
+  title         = "Title of the proposal",
+  program       = "National Science Foundation ({NSF}); Directorate for Computer and Information Science and Engineering ({CSE}); Division of Computer and Communication Foundations ({CCF})",
+  investigator_p = "Last, First",
+  investigator_co = "Last1, First1 and Last2, First2 and Last3, First3 and Last4, First4",
+  date          = "2008-07",
+  amount        = 100000,
+  status        = accp,
+  note          = "A note about the proposal"
+}
+
+
+@proposal{        prop4,
+  title         = "Title of the proposal",
+  program       = "National Science Foundation ({NSF}); Directorate for Computer and Information Science and Engineering ({CSE}); Division of Computer and Communication Foundations ({CCF})",
+  investigator_p = "Last, First",
+  investigator_co = "Last1, First1 and Last2, First2 and Last3, First3 and Last4, First4",
+  date          = "2008-07",
+  amount        = 100000,
+  status        = accp,
+  note          = "A note about the proposal"
+}
+
+
+@seniordesign{    sendes1,
+  year          = "2009-2010",
+  title         = "A senior design project",
+  team          = "ECE-12",
+  advisors      = "Last, First",
+  students      = "Last1, First1 and Last2, First2 and Last3, First3 and Last4, First4",
+  note          = "A note about the senior design project"
+}
+
+
+@seniordesign{    sendes1,
+  year          = "2009-2010",
+  title         = "A senior design project",
+  team          = "ECE-12",
+  advisors      = "Last, First",
+  students      = "Last1, First1 and Last2, First2 and Last3, First3 and Last4, First4",
+  note          = "A note about the senior design project"
+}
+
+
+@seniordesign{    sendes1,
+  year          = "2009-2010",
+  title         = "A senior design project",
+  team          = "ECE-12",
+  advisors      = "Last, First",
+  students      = "Last1, First1 and Last2, First2 and Last3, First3 and Last4, First4",
+  note          = "A note about the senior design project"
+}
+
+
+@service{         service1,
+  conf_name     = "IEEE ICC 2014 (Communications Theory Symposium)",
+  conf_url      = "http://www.ieee-icc.org/2014/",
+  location      = "Budapest, Hungary",
+  duration      = "2014-06-09/2014-06-13",
+  type          = tpc
+}
+
+
+@service{         service2,
+  conf_name     = "IEEE ICC 2014 (Communications Theory Symposium)",
+  conf_url      = "http://www.ieee-icc.org/2014/",
+  location      = "Budapest, Hungary",
+  duration      = "2014-06-09/2014-06-13",
+  type          = oc
+}
+
+
+@service{         service3,
+  conf_name     = "IEEE ICC 2014 (Communications Theory Symposium)",
+  conf_url      = "http://www.ieee-icc.org/2014/",
+  location      = "Budapest, Hungary",
+  duration      = "2014-06-09/2014-06-13",
+  type          = tpc
+}
+
+
+@service{         service4,
+  conf_name     = "IEEE Transactions on Mobile Computing",
+  conf_url      = "http://www.computer.org/portal/web/tmc/",
+  duration      = "2012-09",
+  type          = jge,
+  note          = "Associate editor"
+}
+
+
+@student{         student1,
+  name          = "Last, First",
+  image         = "./bio.png",
+  degree        = phd,
+  email         = "student1@university.edu",
+  website       = "http://www.google.com",
+  website_alt   = "www.google.com",
+  bio           = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eget arcu nibh. Etiam in nulla nec nibh feugiat fermentum vel nec augue. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam quis dapibus purus. Duis quis luctus augue. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vivamus id venenatis arcu. Vestibulum sed sagittis nisl. Duis non tempus velit. Donec a pulvinar est, et commodo lacus."
+}
+
+
+@student{         student2,
+  name          = "Last, First",
+  image         = "./bio.png",
+  degree        = phd,
+  email         = "student2@university.edu",
+  website       = "http://www.google.com",
+  website_alt   = "www.google.com",
+  bio           = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eget arcu nibh. Etiam in nulla nec nibh feugiat fermentum vel nec augue. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam quis dapibus purus. Duis quis luctus augue. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vivamus id venenatis arcu. Vestibulum sed sagittis nisl. Duis non tempus velit. Donec a pulvinar est, et commodo lacus."
+}
+
+
+@student{         student3,
+  name          = "Last, First",
+  image         = "./bio.png",
+  degree        = phd,
+  email         = "student3@university.edu",
+  website       = "http://www.google.com",
+  website_alt   = "www.google.com",
+  bio           = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eget arcu nibh. Etiam in nulla nec nibh feugiat fermentum vel nec augue. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam quis dapibus purus. Duis quis luctus augue. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vivamus id venenatis arcu. Vestibulum sed sagittis nisl. Duis non tempus velit. Donec a pulvinar est, et commodo lacus."
+}
+
+
+@student{         student4,
+  name          = "Last, First",
+  image         = "./bio.png",
+  degree        = phd,
+  email         = "student4@university.edu",
+  website       = "http://www.google.com",
+  website_alt   = "www.google.com",
+  bio           = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eget arcu nibh. Etiam in nulla nec nibh feugiat fermentum vel nec augue. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam quis dapibus purus. Duis quis luctus augue. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vivamus id venenatis arcu. Vestibulum sed sagittis nisl. Duis non tempus velit. Donec a pulvinar est, et commodo lacus."
+}

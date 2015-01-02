@@ -1,0 +1,874 @@
+\ProvidesFile{academic.bbx}[academic style: ]%$Format:%H committed on %ci by %cn$]
+
+\@ifpackagelater{biblatex}{2013/07/15}{%
+  % package is new enough
+}{%
+  \PackageError{biblatex}{%
+    Outdated `biblatex' package\MessageBreak%
+    The `academic' style requires biblatex v2.7a or later.\MessageBreak%
+    You are using: `\csuse{ver@biblatex.sty}'.\MessageBreak%
+    This is a fatal error%
+  }%
+  \endinput%
+}
+
+\RequireBibliographyStyle{ieee}
+
+\RequirePackage{calc}                                       % provides \widthof
+\RequirePackage{graphicx}                                   % provides \includegraphics
+\RequirePackage[group-separator={,}]{siunitx}               % provides \num
+\RequirePackage[colorlinks=true,linkcolor=black]{hyperref}  % provides \href
+\RequirePackage[]{wrapfig}
+
+% define a new boolean type "money" to choose whether or not to reveal the funding amount of the project.
+% true: reveal;   false:hide.
+\newboolean{money}
+\setboolean{money}{true}
+
+
+% define additional bibheadings to support subsubsections
+% TODO: integrate into official biblatex.def and check for document type, e.g., article vs book
+% TODO: submit as a patch to biblatex developer(s)
+\defbibheading{subsubbibliography}[\refname]{%
+  \subsubsection*{#1}%
+}
+\defbibheading{subsubbibintoc}[\refname]{%
+  \subsubsection*{#1}%
+  \addcontentsline{toc}{subsubsection}{#1}%
+}
+\defbibheading{subsubbibnumbered}[\refname]{%
+  \subsubsection{#1}%
+}
+
+
+%\defbibenvironment{people}{\null}{\null}{\null}
+\defbibenvironment{people}{\list{}{%
+    \setlength{\leftmargin}{0in}%
+    \setlength{\itemindent}{0in}%
+    \setlength{\itemsep}{\bibitemsep}%
+    \setlength{\parsep}{\bibparsep}}}%
+{\endlist}
+{\item}
+
+
+% Declare a sorting scheme based on eventdate.
+% If a date range is not provided, fall back to start date.
+\DeclareSortingScheme{eventdate}{%
+  \sort[direction=descending]{%
+    \field{eventendyear}%
+    \field{eventyear}%
+  }%
+  \sort[direction=descending]{%
+    \field{eventendmonth}%
+    \field{eventmonth}%
+  }%
+  \sort[direction=descending]{%
+    \field{eventendday}%
+    \field{eventday}%
+  }%
+}
+
+
+% Declare a sorting scheme based on year, month, name, title
+% See "ymdnt" in http://tex.stackexchange.com/questions/179777/bibliography-sorted-in-order-of-use-and-a-publications-section-sorted-by-date
+\DeclareSortingScheme{ymdnt}{
+  \sort{
+    \field{presort}
+  }
+  \sort[final]{
+    \field{sortkey}
+  }
+  \sort[direction=descending]{ % Change if ascending desired
+    \field{sortyear}
+    \field{year}
+  }
+  \sort[direction=descending]{
+    \field[padside=left,padwidth=2,padchar=0]{month}
+    \literal{00}
+  }
+  \sort[direction=descending]{
+    \field[padside=left,padwidth=2,padchar=0]{day}
+    \literal{00}
+  }
+  \sort{
+    \name{sortname}
+    \name{author}
+    \name{editor}
+    \name{translator}
+    \field{sorttitle}
+    \field{title}
+  }
+  \sort{
+    \field{sorttitle}
+  }
+  \sort{
+    \field[padside=left,padwidth=4,padchar=0]{volume}
+    \literal{0000}
+  }
+}
+
+
+%%%%%%%%%%%%
+%% Step 1 %%
+%%%%%%%%%%%%
+% Map custom fieldtypes to known fieldtypes for each new entry type.
+% We provide these mappings on a per entrytype basis in a single \DeclareSourcemap call.
+\DeclareSourcemap{
+  \maps[datatype=bibtex]{
+    \map{
+      \pertype{student}
+      \step[fieldsource=name, fieldtarget=author]
+      \step[fieldsource=image, fieldtarget=file]
+      \step[fieldsource=degree, fieldtarget=verba]
+      \step[fieldsource=email, fieldtarget=verbb]
+      \step[fieldsource=website, fieldtarget=url]
+      \step[fieldsource=website_alt, fieldtarget=verbc]
+      \step[fieldsource=coadvisor, fieldtarget=editorc]
+      \step[fieldsource=coadvisor_url, fieldtarget=verbd]
+      \step[fieldsource=bio, fieldtarget=note]
+    }
+    \map{
+      \pertype{alumnus}
+      \step[fieldsource=name, fieldtarget=author]
+      \step[fieldsource=image, fieldtarget=file]
+      \step[fieldsource=degree, fieldtarget=verba]
+      %field:date is a standard field
+      \step[fieldsource=thesis, fieldtarget=title]
+      \step[fieldsource=coadvisor, fieldtarget=editorb]
+      \step[fieldsource=coadvisor_url, fieldtarget=url]
+      \step[fieldsource=employer, fieldtarget=verbb]
+      \step[fieldsource=employer_url, fieldtarget=verbc]
+      %field:note is a standard field
+    }
+    \map{
+      \pertype{collaborator}
+      \step[fieldsource=name, fieldtarget=author]
+      \step[fieldsource=image, fieldtarget=file]
+      \step[fieldsource=position, fieldtarget=title]
+      \step[fieldsource=employer, fieldtarget=journaltitle]
+      \step[fieldsource=employer_url, fieldtarget=verba]
+      \step[fieldsource=email, fieldtarget=verbb]
+      \step[fieldsource=website, fieldtarget=url]
+      \step[fieldsource=website_alt, fieldtarget=verbc]
+      \step[fieldsource=type, fieldtarget=entrysubtype]
+    }
+    \map{
+      \pertype{project}
+      %field:title is a standard field
+      \step[fieldsource=program, fieldtarget=journaltitle]
+      \step[fieldsource=award_num, fieldtarget=verba]
+      \step[fieldsource=award_url, fieldtarget=url]
+      %\step[fieldsource=url, match=\regexp{_}, replace=\regexp{&#95;}]
+      \step[fieldsource=investigator_p, fieldtarget=editora]
+      \step[fieldsource=investigator_co, fieldtarget=editorb]
+      \step[fieldsource=duration, fieldtarget=eventdate]
+      \step[fieldsource=amount, fieldtarget=number]
+      \step[fieldsource=status, fieldtarget=entrysubtype]
+      %field:note is a standard field
+    }
+    \map{
+      \pertype{proposal}
+      %field:title is standard field
+      \step[fieldsource=program, fieldtarget=journaltitle]
+      \step[fieldsource=investigator_p, fieldtarget=editora]
+      \step[fieldsource=investigator_co, fieldtarget=editorb]
+      %field:date is a standard field
+      \step[fieldsource=amount, fieldtarget=number]
+      \step[fieldsource=status, fieldtarget=entrysubtype]
+      %field:note is a standard field
+    }
+    \map{
+      \pertype{presentation}
+      \step[fieldsource=presenter, fieldtarget=author]
+      %field:title is standard field
+      \step[fieldsource=eventtype, fieldtarget=entrysubtype]
+      \step[fieldsource=event, fieldtarget=venue]
+      %field:location is a standard field
+      %field:date is a standard field
+      %field:keywords is a standard field
+    }
+    \map{
+      \pertype{seniordesign}
+      %field:year is a standard field
+      %field:title is a standard field
+      \step[fieldsource=team, fieldtarget=verba]
+      \step[fieldsource=advisors, fieldtarget=editor]
+      \step[fieldsource=students, fieldtarget=author]
+      %field:note is a standard field
+    }
+    \map{
+      \pertype{committee}
+      %field:title is a standard field
+      %field:date is a standard field
+      \step[fieldsource=student, fieldtarget=author]
+      \step[fieldsource=advisor, fieldtarget=editor]
+      \step[fieldsource=coadvisor, fieldtarget=editora]
+      \step[fieldsource=chair, fieldtarget=editorb]
+      \step[fieldsource=member, fieldtarget=editorc]
+      \step[fieldsource=type, fieldtarget=entrysubtype]
+    }
+    \map{
+      \pertype{service}
+      \step[fieldsource=conf_name, fieldtarget=title]
+      \step[fieldsource=conf_url, fieldtarget=url]
+      %field:location is a standard field
+      \step[fieldsource=duration, fieldtarget=eventdate]
+      \step[fieldsource=type, fieldtarget=entrysubtype]
+      %field:note is a standard field
+    }
+    \map{
+      \pertype{course}
+      %field:number is a standard field
+      %field:title is a standard field
+      \step[fieldsource=term, fieldtarget=issue]
+      \step[fieldsource=academic_year, fieldtarget=eventdate]
+      \step[fieldsource=level, fieldtarget=entrysubtype]
+      \step[fieldsource=enrollment, fieldtarget=pagetotal]
+      \step[fieldsource=instr_mean, fieldtarget=usera]
+      \step[fieldsource=instr_std, fieldtarget=userb]
+      \step[fieldsource=student_mean, fieldtarget=userc]
+      \step[fieldsource=student_std, fieldtarget=userd]
+    }
+  }
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%
+%% Student Entries %%
+%%%%%%%%%%%%%%%%%%%%%
+% name (required)
+%   The name of the student.
+% image (required)
+%   An image filename containing a headshot of the student.  Paths to the filename are supplied in the preamble above.
+%   Image formats are the standard formats supported by the graphicx package.
+% email (optional)
+%   The email address of the student.
+% website (optional)
+%   The website of the student.  This url will be wrapped by a call to \href.
+% website_alt (optional)
+%   Alternate text to appear in place of the student's website; ignored if 'website' not supplied.  This is useful if
+%   the student's website url is long or not pretty.
+% coadvisor (optional)
+%   The name of the student's coadvisor.
+% coadvisor_url (optional)
+%   The website of the student's coadvisor; ignored if 'coadvisor' not supplied.
+% bio (required)
+%   A blurb describing the research interests of the student.
+
+%%%%%%%%%%%%
+%% Step 2 %%
+%%%%%%%%%%%%
+% If an override is needed from the default formatting for known fieldtype, specify the new formatting.
+% Here we provide formatting applied for a specific entrytype: student.
+\DeclareNameFormat[student]{author}{{\mkbibbold{#3\space#1}}}   % name
+\DeclareFieldFormat[student]{file}{{%                           % image
+  %\includegraphics[width=1in,height=1.25in,trim=0.5in 0in 0.5in 0in,clip,keepaspectratio]{#1}%
+  \includegraphics[width=1in,height=1.25in,keepaspectratio]{#1}%
+}}
+\DeclareFieldFormat[student]{verba}{{#1}}                       % degree
+\DeclareFieldFormat[student]{verbb}{{#1}}                       % email
+\DeclareFieldFormat[student]{url}{{%                            % website & website_alt
+  \iffieldundef{verbb}{%
+    \url{#1}%
+  }{%
+    \href{#1}{\thefield{verbc}}%
+  }%
+}}
+\DeclareNameFormat[student]{editorc}{{%                         % coadvisor & coadvisor_url
+  \iffieldundef{verbc}{%
+    #3\space#1%
+  }{%
+    \href{\thefield{verbd}}{#3\space#1}%
+  }%
+}}
+\DeclareFieldFormat[student]{note}{{#1}}                        % note
+
+%%%%%%%%%%%%
+%% Step 3 %%
+%%%%%%%%%%%%
+% Declare how the fieldtypes will be arranged in the bibliography entry.
+% Here we provide the arrangement for a specific entrytype: student.
+\DeclareBibliographyDriver{student}{%
+  \begin{minipage}{\linewidth}%
+    \setlength{\intextsep}{0in}%
+    \begin{wrapfigure}{l}{1in}%
+      \begin{center}%
+        \printfield{file}%
+      \end{center}%
+    \end{wrapfigure}%
+    \setlength{\parindent}{-0.1in}%
+    \printnames[author]{author}%
+    \iffieldundef{verba}{}{\par\printtext{Degree Sought:}\space\printfield{verba}}%
+    \iffieldundef{verbb}{}{\par\printtext{Contact:}\space\printfield{verbb}}%
+    \iffieldundef{url}{}{\par\printtext{Website:}\space\printfield{url}}%
+    \ifnameundef{editorc}{}{\par\printtext{Co-advised}\space\printtext{with:}\space\printnames[editorc]{editorc}}%
+    \par\printtext{Bio:}%
+    \par\noindent\printfield{note}%
+    \ifnum \c@WF@wrappedlines > 0\relax% insert an invisible support strut if there are lines left to wrap
+      \par\noindent\rule{0pt}{\c@WF@wrappedlines\baselineskip}%
+    \fi%
+  \end{minipage}%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%
+%% Alumnus Entries %%
+%%%%%%%%%%%%%%%%%%%%%
+% name (required)
+%   The name of the alumnus.
+% image (required)
+%   An image filename containing a headshot of the alumnus.  Paths to the filename are supplied in the preamble above.
+%   Image formats are the standard formats supported by the graphicx package.
+% degree (required)
+%   The last degree awarded to the alumnus.
+% date (required)
+%   The date on which the above degree was awarded (yyyy-mm-dd).
+% thesis (required)
+%   The title of the alumnus' thesis.
+% coadvisor (optional)
+%   The name of the coadvisor of the alumnus.
+% coadvisor_url (optional)
+%   The website of the alumnus' coadvisor; ignored if 'coadvisor' not supplied.
+% employer (optional)
+%   The employer of the alumnus.
+% employer_url (optional)
+%   The website of the alumnus' employer; ignored if 'employer' not supplied.
+
+\DeclareNameFormat[alumnus]{author}{{\mkbibbold{#3\space#1}}}   % name
+\DeclareFieldFormat[alumnus]{file}{{%                           % image
+  \includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{#1}%
+}}
+\DeclareFieldFormat[alumnus]{verba}{{#1}}                       % degree
+%field:date is given standard formatting                        % date
+\DeclareFieldFormat[alumnus]{title}{{%                          % thesis
+  \MakeSentenceCase*{#1}%
+}}
+\DeclareNameFormat[alumnus]{editorb}{{%                         % coadvisor & coadvisor_url
+  \iffieldundef{url}{%
+    #3\space#1%
+  }{%
+    \href{\thefield{url}}{#3\space#1}%
+  }%
+}}
+\DeclareFieldFormat[alumnus]{verbb}{{%                         % employer & employer_url
+  \iffieldundef{verbc}{%
+    #1%
+  }{%
+    \href{\thefield{verbc}}{#1}%
+  }%
+}}
+
+\DeclareBibliographyDriver{alumnus}{%
+  \begin{minipage}{\linewidth}%
+    \setlength{\intextsep}{0in}%
+    \begin{wrapfigure}{l}{1in}%
+      \begin{center}%
+        \printfield{file}%
+      \end{center}%
+    \end{wrapfigure}%
+    \parindent -0.1in%
+    \printnames[author]{author}%
+    \iffieldundef{verba}{}{\par\printtext{Degree:}\space\printfield{verba}\printtext{,}\space\printdate}%
+    \par\printtext{Thesis:}\space\printfield{title}%
+    \iffieldundef{note}{}{\par\printfield{note}}%
+    \ifnameundef{editorb}{}{\par\printtext{Co-advised}\space\printtext{with:}\space\printnames[editorb]{editorb}}%
+    \iffieldundef{verbb}{}{\par\printtext{Current}\space\printtext{employer:}\space\printfield{verbb}}%
+    \ifnum \c@WF@wrappedlines > 0\relax%
+      \par\noindent\rule{0pt}{\c@WF@wrappedlines\baselineskip}%
+    \fi%
+  \end{minipage}%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Collaborator Entries %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+% name (required)
+%   The name of the collaborator.
+% image (required)
+%   An image filename containing a headshot of the collaborator.  Paths to the filename are supplied in the preamble above.
+%   Image formats are the standard formats supported by the graphicx package.
+% position (required)
+%   The position title of the collaborator.
+% employer (required)
+%   The employer of the collaborator.
+% employer_url (optional)
+%   The website of the collaborator's employer.
+% email (optional)
+%   The email address of the collaborator.
+% website (optional)
+%   The website of the collaborator.  This url will be wrapped by a call to \href.
+% website_alt (optional)
+%   Alternate text to appear in place of the collaborator's website.  This is useful if the collaborator's website url
+%   is long or not pretty.
+% type (required)
+%   The type of the collaborator (internal, external).
+
+\DeclareNameFormat[collaborator]{author}{{\mkbibbold{#3\space#1}}}   % name
+\DeclareFieldFormat[collaborator]{file}{{%                           % image
+  \includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{#1}%
+}}
+\DeclareFieldFormat[collaborator]{title}{{#1}}                       % position
+\DeclareFieldFormat[collaborator]{journaltitle}{{%                   % employer & employer_url
+  \iffieldundef{verba}{%
+    #1%
+  }{%
+    \href{\thefield{verba}}{#1}%
+  }%
+}}
+\DeclareFieldFormat[collaborator]{verbb}{{#1}}                       % email
+\DeclareFieldFormat[collaborator]{url}{{%                            % website & website_alt
+  \iffieldundef{verbc}{%
+    \url{#1}%
+  }{%
+    \href{#1}{\thefield{verbc}}%
+  }%
+}}
+
+\DeclareBibliographyDriver{collaborator}{%
+  \begin{minipage}{\linewidth}%
+    \setlength{\intextsep}{0in}%
+    \begin{wrapfigure}{l}{1in}%
+      \begin{center}%
+        \printfield{file}%
+      \end{center}%
+    \end{wrapfigure}%
+    \parindent -0.1in%
+    \printnames[author]{author}%
+    \iffieldundef{title}{}{\par\printfield{title}}%
+    \iffieldundef{journaltitle}{}{\par\printfield{journaltitle}}%
+    \iffieldundef{verbb}{}{\par\printtext{Contact:}\space\printfield{verbb}}%
+    \iffieldundef{url}{}{\par\printtext{Website:}\space\printfield{url}}%
+    \ifnum \c@WF@wrappedlines > 0\relax%
+      \par\noindent\rule{0pt}{\c@WF@wrappedlines\baselineskip}%
+    \fi%
+  \end{minipage}%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%
+%% Project Entries %%
+%%%%%%%%%%%%%%%%%%%%%
+% title (required)
+%   The title of the project.
+% program (required)
+%   The name(s) of the awarding agency(ies).
+% award_num (optional)
+%   The award number of the project, if assigned by the awarding agency.
+% award_url (optional)
+%   A webpage containing information on the award; ignored if 'award_num' not supplied.
+% investigators_p (required)
+%   The name of the principal investigator on the proposal.
+% investigators_co (required)
+%   A list of co-investigators on the proposal.  Separate each name with " and ".
+% duration (required)
+%   The starting and ending dates of the project (yyyy-mm-dd/yyyy-mm-dd).
+% amount (required)
+%   The amount of the funded project.  Enter the number of dollars - no dollar sign, no commas, etc.
+% status (required)
+%   The current status of the project (ongoing, completed).
+% note (optional)
+
+\DeclareFieldFormat[project]{title}{{%                       % title
+  \mkbibbold{%
+    \MakeSentenceCase*{#1}%
+  }%
+}}
+\DeclareFieldFormat[project]{journaltitle}{{#1}}              % program
+\DeclareFieldFormat[project]{verba}{{%                        % award_num & award_url
+  \iffieldundef{url}{%
+    #1%
+  }{%
+    \href{\thefield{url}}{#1}%
+  }%
+}}
+\DeclareNameFormat[project]{editora}{{#3\space#1\space(PI)}}  % investigator_p
+\DeclareNameFormat[project]{editorb}{{%                       % investigator_co
+  \ifthenelse{\value{liststop}=1}{%
+    \space%
+  }{%
+    \addcomma\space%
+  }%
+  \ifthenelse{\value{listcount}=\value{liststop}}{%
+    \printtext{and}\space%
+  }{}%
+  #3\space#1\isdot%
+}}
+%field:eventdate is given standard processing                   % duration
+\DeclareFieldFormat[project]{number}{{\$\num{#1}}}              % amount
+\DeclareFieldFormat[project]{entrysubtype}{{(\mkbibbold{#1})}}  % status
+
+\DeclareBibliographyDriver{project}{%
+  \begin{tabular}[t]{lp{\linewidth-\labelsep-2\labelwidth-\widthof{Investigators:}}}%
+    Title: & \printfield{title} \\%
+    Program: & \printfield{journaltitle} \\%
+    \iffieldundef{verba}{}{ Award: & \printfield{verba} \\}
+    Investigators & \printnames[editora]{editora}\ifnameundef{editorb}{}{\printnames[editorb]{editorb}} \\%
+    Duration: & \printeventdate\space\printfield{entrysubtype}%
+    \iffieldundef{number}{}{\ifthenelse{\boolean{money}}{\\ \printtext{Amount:} & \printfield{number}\iffieldundef{note}{}{\addspace\printfield{note}}}{}}%
+  \end{tabular}%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+%% Proposal Entries %%
+%%%%%%%%%%%%%%%%%%%%%%
+% title (required)
+%   The title of the proposal.
+% program (required)
+%   The name(s) of the agency(ies) to whom the proposal was submitted.
+% investigators_p (required)
+%   The name of the principal investigator on the proposal.
+% investigators_co (required)
+%   A list of co-investigators on the proposal.  Separate each name with " and ".
+% date (required)
+%   The submission date of the proposal (yyyy-mm-dd).
+% amount (required)
+%   The amount of the funded project.  Enter the number of dollars - no dollar sign, no commas, etc.
+% status (required)
+%   The current status of the proposal (accepted, pending, declined).
+% note (optional)
+%   Any additional information regarding the submission of the proposal.
+
+\DeclareFieldFormat[proposal]{title}{{%                         % title
+  \mkbibbold{%
+    \MakeSentenceCase*{#1}%
+  }%
+}}
+\DeclareFieldFormat[proposal]{journaltitle}{{#1}}               % program
+\DeclareNameFormat[proposal]{editora}{{#3\space#1\space(PI)}}   % investigator_p
+\DeclareNameFormat[proposal]{editorb}{%                         % investigator_co
+  \ifthenelse{\value{liststop}=1}%
+  {\space}%
+  {\addcomma\space}%
+  \ifthenelse{\value{listcount}=\value{liststop}}%
+  {\printtext{and}\space}%
+  {}%
+  #3\space#1\isdot%
+}
+%field:date is given standard formatting                        % date
+\DeclareFieldFormat[proposal]{number}{{\$\num{#1}}}             % amount
+\DeclareFieldFormat[proposal]{entrysubtype}{{(\mkbibbold{#1})}} % status
+\DeclareFieldFormat[proposal]{note}{{#1}}                       % note
+
+\DeclareBibliographyDriver{proposal}{%
+  \begin{tabular}[t]{lp{\linewidth-\labelsep-2\labelwidth-\widthof{Investigators:}}}%
+    Title: & \printfield{title} \\%
+    Program: & \printfield{journaltitle} \\%
+    Investigators & \printnames[editora]{editora}\ifnameundef{editorb}{}{\printnames[editorb]{editorb}} \\%
+    Amount: & \printfield{number} \\%
+    Submitted: & \printdate\space\printfield{entrysubtype}%
+    \iffieldundef{note}{}{\\ Note: & \printfield{note}}%
+  \end{tabular}%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Presentation Entries %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+% presenter (required)
+%	  The name of the presenter.
+% title (required)
+%	  The title of the presentation.
+% eventtype (required)
+%	  The type of presentation given. conference(Conf), university(Univ), project(Proj), industry(Indu), miscellaneous(Misc).
+% event (required)
+%	  The name of the above event.
+% location (required)
+%	  The location of the presentation (city, state, country).
+% date (required)
+%	  The date of the presentation (yyyy-mm-dd).
+% keywords (optional)
+%	  The invited status of the presentation (invited, not-invited).
+
+\DeclareNameFormat[presentation]{author}{{#3\space#1}}          % presenter
+\DeclareFieldFormat[presentation]{title}{{%                     % title
+  \mkbibquote{%
+    \MakeSentenceCase*{#1}%
+  }%
+}}
+%field:entrysubtype is given standard processing                % eventtype
+\DeclareFieldFormat[presentation]{venue}{{\mkbibemph{#1}}}      % event
+\DeclareFieldFormat[presentation]{location}{{#1}}               % location
+%field:date is given standard formatting                        % date
+%field:keywords is given standard processing                    % keywords
+
+\DeclareBibliographyDriver{presentation}{%
+  \printnames[author]{author}\newunit\newblock%
+  \printfield{title}\newunit\newblock%
+  \printfield{venue}\newunit%
+  \printlist{location}\newunit%
+  \printdate\finentry%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Seniordesign Entries %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+% year (required)
+%   The academic year of the senior design (yyyy-yyyy).
+% title (required)
+%   The title of the project.
+% team (required)
+%   The name of the team (e.g. ECE-14).
+% advisors (required)
+%   The advisor of the senior design team.
+% students (required)
+%   The student members in the senior design team.
+% note (optional)
+%   Any additional information regarding the senior design entry.
+
+\DeclareFieldFormat[seniordesign]{year}{{#1}}                   % year
+\DeclareFieldFormat[seniordesign]{title}{{%                     % title
+  \mkbibquote{%
+    \MakeSentenceCase*{#1}%
+  }%
+}}
+\DeclareNameFormat[seniordesign]{verba}{{#1}}                   % team
+\DeclareNameFormat[seniordesign]{fullname}{%                    % students and advisors
+  \ifthenelse{\value{listcount}=\value{liststop}}{% last name in list
+    \ifthenelse{\value{liststop}=1}{% only one name in list
+      % do nothing
+    }{% more than one name in list
+      \ifthenelse{\value{liststop}=2}{% two names in list
+        \space\printtext{and}\space%
+      }{% more than two names in list
+        \addcomma\space\printtext{and}\space%
+      }%
+    }%
+  }{% not last name in list
+    \ifthenelse{\value{listcount}=1}{% first name in list
+      % do nothing
+    }{% not the first name in list
+      \addcomma\space%
+    }%
+  }%
+  #3\space#1%
+}
+\DeclareFieldFormat[seniordesign]{note}{{\mkbibbold{*#1}}}      % note
+
+\DeclareBibliographyDriver{seniordesign}{%
+  \begin{tabular}[t]{lp{\linewidth-\labelsep-2\labelwidth-\widthof{Academic year:}}}%
+    Team: & \printfield{verba}\iffieldundef{note}{}{\mkbibbold{*}}\\%
+    Title: & \printfield{title} \\%
+    Students: & \printnames[fullname]{author} \\%
+    Advisors: & \printnames[fullname]{editor} \\%
+    Academic year: & \printfield{year}%
+    \iffieldundef{note}{}{\\ & \printfield{note}}%
+  \end{tabular}%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%% Committee Entries %%
+%%%%%%%%%%%%%%%%%%%%%%%
+% title (required)
+%   The title of the thesis.
+% date (required)
+%   The date of the event (yyyy-mm-dd).
+% student (required)
+%   The name of the student.
+% advisor (required)
+%   The name of the advisor of the student.
+% coadvisor (optional)
+%   The name of the coadvisor of the student.
+% chair (required)
+%   The name of the chair of the committee.
+% member(required)
+%   The names of the other committee members (except advisor, coadvisor and chair).
+% type (required)
+%   The type of committee (phd-candidacy, phd-proposal, phd-defense, ms-defense).
+
+\DeclareFieldFormat[committee]{title}{{%                        % title
+  \mkbibbold{%
+    \MakeSentenceCase*{#1}%
+  }%
+}}
+\DeclareFieldFormat[committee]{date}{{#1}}                      % date
+\DeclareNameFormat[committee]{author}{{#3\space#1\space}}       % student
+\DeclareNameFormat[committee]{editor}{{#3\space#1}}             % advisor
+\DeclareNameFormat[committee]{editora}{{#3\space#1}}            % coadvisor
+\DeclareNameFormat[committee]{editorb}{{#3\space#1}}            % chair
+\DeclareNameFormat[committee]{editorc}{%                        % members
+  \ifthenelse{\value{liststop}=1}%
+  {\space}%
+  {\addcomma\space}%
+  \ifthenelse{\value{listcount}=\value{liststop}}%
+  {\printtext{and}\space}%
+  {}%
+  #3\space#1%
+}
+\DeclareNameFormat[committee]{entrysubtype}{{#1}}
+
+\DeclareBibliographyDriver{committee}{%
+  \begin{tabular}[t]{lp{\linewidth-\labelsep-2\labelwidth-\widthof{Committee:}}}%
+    Title: & \printfield{title} \\%
+    Student: & \printnames[author]{author}\\%
+    Date: & \printdate \\%
+    %Type: & \printfield{entrysubtype} \\%
+    Committee: & \printnames{editor}\space\printtext{(advisor)}\addcomma\space%
+    \ifnameundef{editora}{}{\printnames[editora]{editora}\space\printtext{(coadvisor)}\addcomma\space}%
+    \printnames[editorb]{editorb}\space\printtext{(chair)}\printnames[editorc]{editorc}%
+  \end{tabular}%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%
+%% Service Entries %%
+%%%%%%%%%%%%%%%%%%%%%
+% type (required)
+%   The type of service: conference organizing committee(OC), conference technical program committee(TPC), journal guest editor(JGE), IEEE volunteer position(IVP).
+% conf_name (required)
+%   The name of the conference (e.g. IEEE International Conference on Communications).
+% conf_url (optional)
+%   The website of the conference.
+% location (required)
+%   The address of the conference (city, state, country).
+% duration (required)
+%   The starting and ending dates of service (yyyy-mm-dd/yyyy-mm-dd).
+% note (optional)
+%   A short description of role (e.g. TCP member, publication chair, etc).
+
+\DeclareFieldFormat[service]{title}{%                           % conf_name & conf_url
+  \iffieldundef{url}{%
+    \mkbibbold{#1}%
+  }{%
+    \href{\thefield{url}}{{#1}}%
+  }%
+}
+\DeclareListFormat[service]{location}{\mkbibemph{#1}}           % location
+%field:eventdate is given standard processing                   % duration
+%field:note is given standard processing                        % note
+
+\DeclareBibliographyDriver{service}{%
+  \printfield{title}\newunit\newblock%
+  \printfield{verba}\newunit\newblock%
+  \printlist{location}\newunit\newblock%
+  \printeventdate\newunit\newblock%
+  \printfield{note}\finentry%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%
+%% Course Entries %%
+%%%%%%%%%%%%%%%%%%%%%
+% number (required)
+%   The number of the course (e.g. ECEC-521).
+% title (required)
+%   The name of the course.
+% term (required)
+%   The term during which the course was taught (e.g. Fall, Winter, Spring).
+% year (required)
+%   The academic year during which the course was taught (yyyy/yyyy).
+% level (required)
+%   The level of the course (e.g. graduate, undergraduate, crosslisted).
+% enrollment (required)
+%   The enrollment number of the course.
+% instr_mean (required)
+%   The mean score earned by the instructor of the course.
+% instr_std (required)
+%   The standard deviation of the scores earned by the instructor of the course.
+% student_mean (required)
+%   The mean score earned by students of the course.
+% student_std (required)
+%   The standard deviation of scores earned by the students of the course.
+
+%field:number is given standard processing
+%field:title is given standard processing
+\DeclareFieldFormat[course]{issue}{%                            % term
+  \iffieldequalstr{issue}{1}{Fall}{}%
+  \iffieldequalstr{issue}{2}{Win}{}%
+  \iffieldequalstr{issue}{3}{Spr}{}%
+  \iffieldequalstr{issue}{4}{Sum}{}%
+}
+%field:eventdate is given standard processing                   % academic_year
+\DeclareFieldFormat[course]{entrysubtype}{%                     % level
+  \iffieldequalstr{entrysubtype}{undergraduate}{U}{}%
+  \iffieldequalstr{entrysubtype}{graduate}{G}{}%
+  \iffieldequalstr{entrysubtype}{crosslisted}{U/G}{}%
+}
+\DeclareFieldFormat[course]{pagetotal}{{\num{#1}}}              % enrollment
+\DeclareFieldFormat[course]{usera}{{\num{#1}}}                  % instr_mean
+\DeclareFieldFormat[course]{userb}{{$\pm$\num{#1}}}             % instr_std
+\DeclareFieldFormat[course]{userc}{{\num{#1}}}                  % student_mean
+\DeclareFieldFormat[course]{userd}{{$\pm$\num{#1}}}             % student_std
+
+% Define a new type of tabular environment with hand-tuned alignment of columns
+\newenvironment{coursetabular}{%
+  \begin{tabular}[h!]{%
+    p{0.11\textwidth}%
+    p{0.38\textwidth}%
+    p{0.13\textwidth}%
+    >{\centering}p{0.04\textwidth}<{\centering}%
+    >{\centering}p{0.05\textwidth}<{\centering}%
+    p{0.15\textwidth}%
+  }%
+}{%
+  \end{tabular}%
+}
+
+% Each entry of the course bibliography has its own coursetabular environment
+% Biblatex doesn't like it when the tabular environment extends across multiple entries
+% See: http://tex.stackexchange.com/questions/71088/tabular-bibliography-with-biblatex
+\DeclareBibliographyDriver{course}{%
+  \begin{coursetabular}%
+    \printfield{number} &%
+    \printfield{title} &%
+    \printeventdate\addcomma\space\printfield{issue} &%
+    \printfield{entrysubtype} &%
+    \printfield{pagetotal} &%
+    \iffieldundef{usera}{
+      \printtext{-}}
+     {\printfield{usera}}
+    \iffieldundef{userb}{
+      \printtext{-}}
+     {\printfield{userb}}\addcomma\space
+    \iffieldundef{userc}{
+      \printtext{-}}
+     {\printfield{userc}}
+    \iffieldundef{userd}{
+      \printtext{-}}
+     {\printfield{userd}}%
+  \end{coursetabular}%
+}
+
+% Define a bib environment for course entries.
+% First, set up a standalone coursetabular environment just for column headings at the beginning of the course bibliography.
+% Second, do nothing at the end of the course bibliography.
+% Third, force a newline between each course entry.
+\defbibenvironment{course}{%
+  \noindent\begin{coursetabular}%
+    \textsl{Course $\#$} &%
+    \textsl{Course Name} &%
+    \textsl{Term} &%
+    \textsl{Level} &%
+    \textsl{Enroll} &%
+    \textsl{Evaluation} \textsl{\scriptsize IM$\pm$ISD, SM$\pm$SSD} \\ \hline%
+  \end{coursetabular}%
+}%
+{}%
+{\\}%
+
+% Define a course prenote.  Specify this in \printbibliography (See: example.tex).
+\defbibnote{course}{%
+  \scriptsize{%
+  Legend:\\%
+  IM$\pm$ISD: Instructor Mean $\pm$ Instructor Standard Deviation\\%
+  SM$\pm$SSD: Student Mean $\pm$ Student Standard Deviation\\%
+  U: Undergraduate Class\\%
+  G: Graduate Class\\%
+  U/G: Crosslisted Class\\%
+  }%
+}
+
+% Define a course sorting scheme.  Specify this in \printbibliography (See: example.tex).
+\DeclareSortingScheme{course}{%	                % The sorting scheme: first sort by year, then sort by term.
+  \sort[direction=descending]{%                 % Sorting by year, descending.
+    \field{eventyear}%
+  }%
+  \sort[direction=ascending]{%                  % Sorting in this sequence: Fall, Spring, Winter, Summer
+    \field{issue}%
+  }%
+}
+
+\endinput

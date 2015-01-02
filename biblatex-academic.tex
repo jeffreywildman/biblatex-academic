@@ -1,0 +1,203 @@
+% !TEX TS-program = pdflatex
+% !BIB TS-program = biber
+\documentclass[11pt,letterpaper]{article}
+\usepackage[top=0.75in,bottom=0.75in,left=0.5in,right=0.5in]{geometry}
+\usepackage{multicol}
+
+\usepackage[backend=biber,bibstyle=academic,defernumbers=true,sorting=nty]{biblatex}
+\setboolean{money}{true}
+
+\addbibresource{./biblatex-academic.bib}
+
+\renewcommand{\bibfont}{\footnotesize}
+
+
+\begin{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%% TABLE OF CONTENTS %%
+%%%%%%%%%%%%%%%%%%%%%%%
+\tableofcontents
+\clearpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% People
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{People}\label{sec:people}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Students
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Students}\label{sec:people-current-phd}
+
+\begin{refsection}
+  \setlength{\bibitemsep}{\baselineskip}
+  \nocite{*}
+  \begin{multicols}{2}
+    \raggedcolumns
+    \printbibliography[heading=none,type=student,resetnumbers=true,omitnumbers=true,env=people]
+  \end{multicols}
+\end{refsection}
+
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Alumni
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Alumni}\label{sec:people-alumni}
+
+\begin{refsection}
+  \setlength{\bibitemsep}{\baselineskip}
+  \nocite{*}
+  \begin{multicols}{2}
+    \raggedcolumns
+    \printbibliography[heading=none,type=alumnus,resetnumbers=true,omitnumbers=true,env=people]
+  \end{multicols}
+\end{refsection}
+
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Collaborators
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Collaborators}\label{sec:collaborators}
+
+% Construct collaborator filters
+\defbibfilter{IntCollab}{%
+  type=collaborator and subtype=internal
+}
+\defbibfilter{ExtCollab}{%
+  type=collaborator and subtype=external
+}
+
+\begin{refsection}
+  \setlength{\bibitemsep}{\baselineskip}
+  \nocite{*}
+
+  \subsubsection{Internal}\label{sec:people-collaborators-internal}
+
+  \begin{multicols}{2}
+    \raggedcolumns
+    \printbibliography[heading=none,resetnumbers=true,omitnumbers=true,env=people,filter=IntCollab]
+  \end{multicols}
+  
+  \subsubsection{External}\label{sec:people-collaborators-external}
+  
+  \begin{multicols}{2}
+    \raggedcolumns
+    \printbibliography[heading=none,resetnumbers=true,omitnumbers=true,env=people,filter=ExtCollab]
+  \end{multicols}
+\end{refsection}
+
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Projects
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{refsection}
+  \setlength{\bibitemsep}{\baselineskip}
+  \nocite{*}
+  \printbibliography[heading=bibnumbered,title=Projects,type=project,resetnumbers=true,sorting=eventdate]
+  \label{sec:projects}
+\end{refsection}
+
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Proposals
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Construct proposal filter for all proposals not declined
+\defbibfilter{NotDeclProposal}{%
+  type=proposal and not subtype=declined
+}
+
+% Print proposal bibliography
+\begin{refsection}
+  \setlength{\bibitemsep}{\baselineskip}
+  \nocite{*}
+  \printbibliography[heading=bibnumbered,title=Proposals,resetnumbers=true,sorting=eventdate,filter=NotDeclProposal]
+  \label{sec:proposals}
+\end{refsection}
+
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Presentations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{refsection}
+  \setlength{\bibitemsep}{0in}
+  \nocite{*}
+  \printbibliography[heading=bibnumbered,title=Presentations,type=presentation,resetnumbers=true,sorting=ymdnt]
+  \label{sec:presentations}
+\end{refsection}
+
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Senior Design Teams
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{refsection}
+  \setlength{\bibitemsep}{\baselineskip}
+  \nocite{*}
+  \printbibliography[heading=bibnumbered,title=Senior Design Teams,type=seniordesign,resetnumbers=true,sorting=ymdnt]
+  \label{sec:seniordesign}
+\end{refsection}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Student Committee
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\section{Student Committees}\label{sec:committee}
+
+\begin{refsection}
+  \setlength{\bibitemsep}{\baselineskip}
+  \nocite{*}
+  \printbibliography[heading=subbibnumbered,title=Candidacy Examination,subtype=phd-candidacy,resetnumbers=true,sorting=ymdnt]
+  \printbibliography[heading=subbibnumbered,title=Ph.D. Thesis Proposal,subtype=phd-proposal,resetnumbers=true,sorting=ymdnt]
+  \printbibliography[heading=subbibnumbered,title=Ph.D. Thesis Defense,subtype=phd-defense,resetnumbers=true,sorting=ymdnt]
+  \printbibliography[heading=subbibnumbered,title=M.S. Thesis Defense,subtype=ms-defense,resetnumbers=true,sorting=ymdnt]
+\end{refsection}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Service
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\section{Service}\label{sec:service}
+
+\defbibfilter{service-oc}{%
+  type=service and subtype=conference-organizing-committee%
+}
+\defbibfilter{service-tpc}{%
+  type=service and subtype=conference-technical-program-committee%
+}
+\defbibfilter{service-other}{%
+  type=service and not subtype=conference-organizing-committee and not subtype=conference-technical-program-committee%
+}
+
+\begin{refsection}
+  \setlength{\bibitemsep}{0in}
+  \nocite{*}
+  \printbibliography[heading=subbibnumbered,title=Conference Organizing Committees,filter=service-oc,resetnumbers=true,sorting=eventdate]
+  \printbibliography[heading=subbibnumbered,title=Conference Technical Program Committees,filter=service-tpc,resetnumbers=true,sorting=eventdate]
+  \printbibliography[heading=subbibnumbered,title=Other,notsubtype=conference-technical-program-committee,filter=service-other,resetnumbers=true,sorting=eventdate]
+\end{refsection}
+
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Teaching
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{refsection}
+  \setlength{\bibitemsep}{0in}
+  \nocite{*}
+  \printbibliography[heading=bibnumbered,title=Teaching,type=course,env=course,prenote=course,sorting=course,resetnumbers=true]
+  \label{sec:teaching}
+\end{refsection}
+
+
+\end{document}
