@@ -118,13 +118,12 @@ doc:
 	  rm -rf *.$$I ; \
 	done
 
-localinstall:
+localinstall: tds
 	echo "Installing files"
 	TEXMFHOME=`kpsewhich --var-value=TEXMFHOME` ; \
-	mkdir -p $$TEXMFHOME/tex/$(PACKAGEROOT) ; \
-	rm -rf $$TEXMFHOME/tex/$(PACKAGEROOT)/* ; \
-	mkdir -p $$TEXMFHOME/tex/$(PACKAGEROOT) ; \
-	cp *.bbx $$TEXMFHOME/tex/$(PACKAGEROOT)/
+	rm -rf $$TEXMFHOME/tex/$(PACKAGEROOT) ; \
+	rm -rf $$TEXMFHOME/doc/$(PACKAGEROOT) ; \
+	unzip -d $$TEXMFHOME -q ./$(PACKAGE).tds.zip
 
 tds: doc
 	echo "Making TDS structure"
