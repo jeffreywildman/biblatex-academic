@@ -262,7 +262,6 @@
 % Here we provide formatting applied for a specific entrytype: student.
 \DeclareNameFormat[student]{author}{{\mkbibbold{#3\space#1}}}   % name
 \DeclareFieldFormat[student]{file}{{%                           % image
-  %\includegraphics[width=1in,height=1.25in,trim=0.5in 0in 0.5in 0in,clip,keepaspectratio]{#1}%
   \includegraphics[width=1in,height=1.25in,keepaspectratio]{#1}%
 }}
 \DeclareFieldFormat[student]{verba}{{#1}}                       % degree
@@ -336,7 +335,7 @@
 
 \DeclareNameFormat[alumnus]{author}{{\mkbibbold{#3\space#1}}}   % name
 \DeclareFieldFormat[alumnus]{file}{{%                           % image
-  \includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{#1}%
+  \includegraphics[width=1in,height=1.25in,keepaspectratio]{#1}%
 }}
 \DeclareFieldFormat[alumnus]{verba}{{#1}}                       % degree
 %field:date is given standard formatting                        % date
@@ -406,7 +405,7 @@
 
 \DeclareNameFormat[collaborator]{author}{{\mkbibbold{#3\space#1}}}   % name
 \DeclareFieldFormat[collaborator]{file}{{%                           % image
-  \includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{#1}%
+  \includegraphics[width=1in,height=1.25in,keepaspectratio]{#1}%
 }}
 \DeclareFieldFormat[collaborator]{title}{{#1}}                       % position
 \DeclareFieldFormat[collaborator]{journaltitle}{{%                   % employer & employer_url
