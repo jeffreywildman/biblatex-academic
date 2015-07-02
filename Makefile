@@ -110,7 +110,9 @@ doc:
 	echo "Compiling documents"
 	for I in $(STYLES) ; do \
 	  pdflatex -draftmode -interaction=batchmode biblatex-$$I 1> /dev/null    ; \
+	  pdflatex -draftmode -interaction=batchmode biblatex-$$I 1> /dev/null    ; \
 	  biber --quiet biblatex-$$I                              1> /dev/null    ; \
+	  pdflatex -interaction=batchmode biblatex-$$I            1> /dev/null    ; \
 	  pdflatex -interaction=batchmode biblatex-$$I            1> /dev/null    ; \
 	  rm -rf biblatex-$$I-blx.bib ; \
 	done
