@@ -45,17 +45,17 @@ The \pkg{biblatex-academic} style requires \pkg{biblatex} 2.7a or later, require
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Entry Types}\label{sec:entry-types}
 
-\pkg{biblatex-academic} defines several new entry types: 
-\entry{alumnus}, 
-\entry{collaborator}, 
+\pkg{biblatex-academic} defines several new entry types:
+\entry{alumnus},
+\entry{collaborator},
 \entry{committee},
-\entry{course}, 
-\entry{presentation}, 
-\entry{project}, 
-\entry{proposal}, 
-\entry{seniordesign}, 
+\entry{course},
+\entry{presentation},
+\entry{project},
+\entry{proposal},
+\entry{seniordesign},
 \entry{service},
-\entry{student}. 
+\entry{student}.
 
 \begin{itemize}
   \item[\entry{alumnus}] An alum of a lab, university, etc.
@@ -89,7 +89,7 @@ The \pkg{biblatex-academic} style requires \pkg{biblatex} 2.7a or later, require
     \field{website\_alt}
 
   \item[\entry{committee}] A committee served on.
-    
+
     Required fields:
     \field{title},
     \field{date},
@@ -103,7 +103,7 @@ The \pkg{biblatex-academic} style requires \pkg{biblatex} 2.7a or later, require
     \field{coadvisor}
 
   \item[\entry{course}] A course course taught at a university.
-    
+
     Required fields:
     \field{number},
     \field{title},
@@ -130,7 +130,7 @@ The \pkg{biblatex-academic} style requires \pkg{biblatex} 2.7a or later, require
     Optional fields:
 
   \item[\entry{project}] A research project.
-    
+
     Required fields:
     \field{title},
     \field{program},
@@ -144,9 +144,9 @@ The \pkg{biblatex-academic} style requires \pkg{biblatex} 2.7a or later, require
     \field{award\_url},
     \field{investigators\_co},
     \field{note}
-  
+
   \item[\entry{proposal}] A research proposal.
-    
+
     Required fields:
     \field{title},
     \field{program},
@@ -160,7 +160,7 @@ The \pkg{biblatex-academic} style requires \pkg{biblatex} 2.7a or later, require
     \field{note}
 
   \item[\entry{seniordesign}] A senior design project.
-    
+
     Required fields:
     \field{year},
     \field{title},
@@ -184,7 +184,7 @@ The \pkg{biblatex-academic} style requires \pkg{biblatex} 2.7a or later, require
     \field{note}
 
   \item[\entry{student}] A student under advisement.
- 
+
     Required fields:
     \field{name},
     \field{image},
@@ -340,9 +340,9 @@ The new fields and their types are listed below:
     \raggedcolumns
     \printbibliography[heading=none,resetnumbers=true,omitnumbers=true,env=people,filter=IntCollab]
   \end{multicols}
-  
+
   \subsubsection{External}\label{sec:people-collaborators-external}
-  
+
   \begin{multicols}{2}
     \raggedcolumns
     \printbibliography[heading=none,resetnumbers=true,omitnumbers=true,env=people,filter=ExtCollab]
