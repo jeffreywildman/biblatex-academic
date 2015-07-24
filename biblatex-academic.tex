@@ -46,7 +46,7 @@ The \pkg{biblatex-academic} style requires \pkg{biblatex} 2.7a or later, require
 \section{Entry Types}\label{sec:entry-types}
 
 \pkg{biblatex-academic} defines several new entry types:
-\entry{alumnus},
+\entry{alum},
 \entry{collaborator},
 \entry{committee},
 \entry{course},
@@ -58,7 +58,7 @@ The \pkg{biblatex-academic} style requires \pkg{biblatex} 2.7a or later, require
 \entry{student}.
 
 \begin{itemize}
-  \item[\entry{alumnus}] An alum of a lab, university, etc.
+  \item[\entry{alum}] An alum of a lab, university, etc.
 
     Required fields:
     \field{name},
@@ -260,7 +260,7 @@ The new fields and their types are listed below:
 \pkg{biblatex-academic} defines new environments that must be used with certain entry types:
 
 \begin{itemize}
-  \item[\env{people}] An environment for use with \entry{alumnus}, \entry{collaborator}, and \entry{student} entries.
+  \item[\env{people}] An environment for use with \entry{alum}, \entry{collaborator}, and \entry{student} entries.
   \item[\env{course}] An environment for use with \entry{course} entries.
 \end{itemize}
 
@@ -311,7 +311,7 @@ The new fields and their types are listed below:
   \nocite{*}
   \begin{multicols}{2}
     \raggedcolumns
-    \printbibliography[heading=none,type=alumnus,resetnumbers=true,omitnumbers=true,env=people]
+    \printbibliography[heading=none,type=alum,resetnumbers=true,omitnumbers=true,env=people]
   \end{multicols}
 \end{refsection}
 

@@ -128,7 +128,7 @@
       \step[fieldsource=bio, fieldtarget=note]
     }
     \map{
-      \pertype{alumnus}
+      \pertype{alum}
       \step[fieldsource=name, fieldtarget=author]
       \step[fieldsource=image, fieldtarget=file]
       \step[fieldsource=degree, fieldtarget=verba]
@@ -310,46 +310,46 @@
 }
 
 
-%%%%%%%%%%%%%%%%%%%%%
-%% Alumnus Entries %%
-%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%
+%% Alum Entries %%
+%%%%%%%%%%%%%%%%%%
 % name (required)
-%   The name of the alumnus.
+%   The name of the alum.
 % image (required)
-%   An image filename containing a headshot of the alumnus.  Paths to the filename are supplied in the preamble above.
+%   An image filename containing a headshot of the alum.  Paths to the filename are supplied in the preamble above.
 %   Image formats are the standard formats supported by the graphicx package.
 % degree (required)
-%   The last degree awarded to the alumnus.
+%   The last degree awarded to the alum.
 % date (required)
 %   The date on which the above degree was awarded (yyyy-mm-dd).
 % thesis (required)
-%   The title of the alumnus' thesis.
+%   The title of the alum' thesis.
 % coadvisor (optional)
-%   The name of the coadvisor of the alumnus.
+%   The name of the coadvisor of the alum.
 % coadvisor_url (optional)
-%   The website of the alumnus' coadvisor; ignored if 'coadvisor' not supplied.
+%   The website of the alum' coadvisor; ignored if 'coadvisor' not supplied.
 % employer (optional)
-%   The employer of the alumnus.
+%   The employer of the alum.
 % employer_url (optional)
-%   The website of the alumnus' employer; ignored if 'employer' not supplied.
+%   The website of the alum' employer; ignored if 'employer' not supplied.
 
-\DeclareNameFormat[alumnus]{author}{{\mkbibbold{#3\space#1}}}   % name
-\DeclareFieldFormat[alumnus]{file}{{%                           % image
+\DeclareNameFormat[alum]{author}{{\mkbibbold{#3\space#1}}}   % name
+\DeclareFieldFormat[alum]{file}{{%                           % image
   \includegraphics[width=1in,height=1.25in,keepaspectratio]{#1}%
 }}
-\DeclareFieldFormat[alumnus]{verba}{{#1}}                       % degree
+\DeclareFieldFormat[alum]{verba}{{#1}}                       % degree
 %field:date is given standard formatting                        % date
-\DeclareFieldFormat[alumnus]{title}{{%                          % thesis
+\DeclareFieldFormat[alum]{title}{{%                          % thesis
   \MakeSentenceCase*{#1}%
 }}
-\DeclareNameFormat[alumnus]{editorb}{{%                         % coadvisor & coadvisor_url
+\DeclareNameFormat[alum]{editorb}{{%                         % coadvisor & coadvisor_url
   \iffieldundef{url}{%
     #3\space#1%
   }{%
     \href{\thefield{url}}{#3\space#1}%
   }%
 }}
-\DeclareFieldFormat[alumnus]{verbb}{{%                         % employer & employer_url
+\DeclareFieldFormat[alum]{verbb}{{%                         % employer & employer_url
   \iffieldundef{verbc}{%
     #1%
   }{%
@@ -357,7 +357,7 @@
   }%
 }}
 
-\DeclareBibliographyDriver{alumnus}{%
+\DeclareBibliographyDriver{alum}{%
   \begin{minipage}{\linewidth}%
     \setlength{\intextsep}{0in}%
     \begin{wrapfigure}{l}{1in}%
