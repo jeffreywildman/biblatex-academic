@@ -581,11 +581,11 @@
 %	  The invited status of the presentation (invited, not-invited).
 
 \DeclareNameFormat[presentation]{author}{{#3\space#1}}          % presenter
-\DeclareFieldFormat[presentation]{title}{{%                     % title
+\DeclareFieldFormat[presentation]{title}{%                      % title
   \mkbibquote{%
     \MakeSentenceCase*{#1}%
   }%
-}}
+}
 %field:entrysubtype is given standard processing                % eventtype
 \DeclareFieldFormat[presentation]{venue}{{\mkbibemph{#1}}}      % event
 \DeclareFieldFormat[presentation]{location}{{#1}}               % location
@@ -618,11 +618,11 @@
 %   Any additional information regarding the senior design entry.
 
 \DeclareFieldFormat[seniordesign]{year}{{#1}}                   % year
-\DeclareFieldFormat[seniordesign]{title}{{%                     % title
+\DeclareFieldFormat[seniordesign]{title}{%                      % title
   \mkbibquote{%
     \MakeSentenceCase*{#1}%
   }%
-}}
+}
 \DeclareNameFormat[seniordesign]{verba}{{#1}}                   % team
 \DeclareNameFormat[seniordesign]{fullname}{%                    % student and advisor
   \ifthenelse{\value{listcount}=\value{liststop}}{% last name in list
