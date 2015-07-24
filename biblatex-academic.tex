@@ -357,7 +357,9 @@ The new fields and their types are listed below:
 \begin{refsection}
   \setlength{\bibitemsep}{\baselineskip}
   \nocite{*}
-  \printbibliography[heading=bibnumbered,title=Projects,type=project,resetnumbers=true,sorting=eventdate]
+  \begin{refcontext}[sorting=eventdate]
+    \printbibliography[heading=bibnumbered,title=Projects,type=project,resetnumbers=true]
+  \end{refcontext}
   \label{sec:projects}
 \end{refsection}
 
@@ -375,7 +377,9 @@ The new fields and their types are listed below:
 \begin{refsection}
   \setlength{\bibitemsep}{\baselineskip}
   \nocite{*}
-  \printbibliography[heading=bibnumbered,title=Proposals,resetnumbers=true,sorting=eventdate,filter=NotDeclProposal]
+  \begin{refcontext}[sorting=eventdate]
+    \printbibliography[heading=bibnumbered,title=Proposals,resetnumbers=true,filter=NotDeclProposal]
+  \end{refcontext}
   \label{sec:proposals}
 \end{refsection}
 
@@ -387,7 +391,9 @@ The new fields and their types are listed below:
 \begin{refsection}
   \setlength{\bibitemsep}{0in}
   \nocite{*}
-  \printbibliography[heading=bibnumbered,title=Presentations,type=presentation,resetnumbers=true,sorting=ymdnt]
+  \begin{refcontext}[sorting=ymdnt]
+    \printbibliography[heading=bibnumbered,title=Presentations,type=presentation,resetnumbers=true]
+  \end{refcontext}
   \label{sec:presentations}
 \end{refsection}
 
@@ -399,7 +405,9 @@ The new fields and their types are listed below:
 \begin{refsection}
   \setlength{\bibitemsep}{\baselineskip}
   \nocite{*}
-  \printbibliography[heading=bibnumbered,title=Senior Design Teams,type=seniordesign,resetnumbers=true,sorting=ymdnt]
+  \begin{refcontext}[sorting=ymdnt]
+    \printbibliography[heading=bibnumbered,title=Senior Design Teams,type=seniordesign,resetnumbers=true]
+  \end{refcontext}
   \label{sec:seniordesign}
 \end{refsection}
 
@@ -413,10 +421,12 @@ The new fields and their types are listed below:
 \begin{refsection}
   \setlength{\bibitemsep}{\baselineskip}
   \nocite{*}
-  \printbibliography[heading=subbibnumbered,title=Candidacy Examination,subtype=phd-candidacy,resetnumbers=true,sorting=ymdnt]
-  \printbibliography[heading=subbibnumbered,title=Ph.D. Thesis Proposal,subtype=phd-proposal,resetnumbers=true,sorting=ymdnt]
-  \printbibliography[heading=subbibnumbered,title=Ph.D. Thesis Defense,subtype=phd-defense,resetnumbers=true,sorting=ymdnt]
-  \printbibliography[heading=subbibnumbered,title=M.S. Thesis Defense,subtype=ms-defense,resetnumbers=true,sorting=ymdnt]
+  \begin{refcontext}[sorting=ymdnt]
+    \printbibliography[heading=subbibnumbered,title=Candidacy Examination,subtype=phd-candidacy,resetnumbers=true]
+    \printbibliography[heading=subbibnumbered,title=Ph.D. Thesis Proposal,subtype=phd-proposal,resetnumbers=true]
+    \printbibliography[heading=subbibnumbered,title=Ph.D. Thesis Defense,subtype=phd-defense,resetnumbers=true]
+    \printbibliography[heading=subbibnumbered,title=M.S. Thesis Defense,subtype=ms-defense,resetnumbers=true]
+  \end{refcontext}
 \end{refsection}
 
 
@@ -439,9 +449,11 @@ The new fields and their types are listed below:
 \begin{refsection}
   \setlength{\bibitemsep}{0in}
   \nocite{*}
-  \printbibliography[heading=subbibnumbered,title=Conference Organizing Committees,filter=service-oc,resetnumbers=true,sorting=eventdate]
-  \printbibliography[heading=subbibnumbered,title=Conference Technical Program Committees,filter=service-tpc,resetnumbers=true,sorting=eventdate]
-  \printbibliography[heading=subbibnumbered,title=Other,notsubtype=conference-technical-program-committee,filter=service-other,resetnumbers=true,sorting=eventdate]
+  \begin{refcontext}[sorting=eventdate]
+    \printbibliography[heading=subbibnumbered,title=Conference Organizing Committees,filter=service-oc,resetnumbers=true]
+    \printbibliography[heading=subbibnumbered,title=Conference Technical Program Committees,filter=service-tpc,resetnumbers=true]
+    \printbibliography[heading=subbibnumbered,title=Other,notsubtype=conference-technical-program-committee,filter=service-other,resetnumbers=true]
+  \end{refcontext}
 \end{refsection}
 
 
@@ -452,7 +464,9 @@ The new fields and their types are listed below:
 \begin{refsection}
   \setlength{\bibitemsep}{0in}
   \nocite{*}
-  \printbibliography[heading=bibnumbered,title=Teaching,type=course,env=course,prenote=course,sorting=course,resetnumbers=true]
+  \begin{refcontext}[sorting=course]
+    \printbibliography[heading=bibnumbered,title=Teaching,type=course,env=course,prenote=course,resetnumbers=true]
+  \end{refcontext}
   \label{sec:teaching}
 \end{refsection}
 
