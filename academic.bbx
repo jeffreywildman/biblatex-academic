@@ -26,21 +26,6 @@
 \setboolean{money}{true}
 
 
-% define additional bibheadings to support subsubsections
-% TODO: integrate into official biblatex.def and check for document type, e.g., article vs book
-% TODO: submit as a patch to biblatex developer(s)
-\defbibheading{subsubbibliography}[\refname]{%
-  \subsubsection*{#1}%
-}
-\defbibheading{subsubbibintoc}[\refname]{%
-  \subsubsection*{#1}%
-  \addcontentsline{toc}{subsubsection}{#1}%
-}
-\defbibheading{subsubbibnumbered}[\refname]{%
-  \subsubsection{#1}%
-}
-
-
 %\defbibenvironment{people}{\null}{\null}{\null}
 \defbibenvironment{people}{\list{}{%
     \setlength{\leftmargin}{0in}%
